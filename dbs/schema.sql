@@ -20,3 +20,5 @@ CREATE TABLE employee(
   emp_role_id INT,
   emp_manager_id INT
 );
+
+--Do I need to add a foreign key above somewhere??
