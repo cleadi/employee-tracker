@@ -6,7 +6,7 @@ const db = mysql.createConnection(
     host: 'localhost',
     user: 'root',
     password: 'rootuser',
-    database: 'movies_db'
+    database: 'employee_tracker'
   },
   console.log('Database connected!!')
 );
@@ -14,7 +14,7 @@ const db = mysql.createConnection(
 // Functions that query the SQL db
 fetchEmpRoleTable = () => {
   return new Promise ((resolve, reject) => {
-    db.query('SELECT emp_role.id, title, name AS Department, salary FROM emp_role JOIN departments ON roles.department_id = department.id', (err, results) => {
+    db.query('SELECT emp_role.id, role, name AS Department, salary FROM emp_role JOIN department ON roles.department_id = department.id', (err, results) => {
       if (err)
         reject(err)
       resolve(results)
@@ -24,7 +24,7 @@ fetchEmpRoleTable = () => {
 
 fetchEmpRoles = () => {
   return new Promise ((resolve, reject) => {
-    db.query(`SELECT title AS name, id AS value from emp_role`, (err, results) => {
+    db.query(`SELECT role AS name, id AS value from emp_role`, (err, results) => {
       if (err)
         reject(err)
       resolve(results)
@@ -67,7 +67,7 @@ fetchEmployeeTable = () => {
     db.query(`SELECT 
         employee.id,
         CONCAT(employee.first_name, '  ', employee.last_name) AS 'Employee Name', 
-        emp_role.title, 
+        emp_role.role, 
         department.name, 
         emp_role.salary,
         CONCAT(m.first_name, '  ', m.last_Name) AS 'Manager'
@@ -105,8 +105,8 @@ addDepartment = (name) => {
   })
 };
 
-addRole = (title, salary, department_id) => {
-  db.query('INSERT INTO emp_role (title, salary, department_id) VALUES (?, ?, ?)', [title, salary, department_id], (err, results) => {
+addRole = (role, salary, department_id) => {
+  db.query('INSERT INTO emp_role (role, salary, department_id) VALUES (?, ?, ?)', [role, salary, department_id], (err, results) => {
     if (err)
       console.log(err)
     return results

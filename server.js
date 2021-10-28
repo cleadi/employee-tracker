@@ -1,7 +1,4 @@
-const cTable = require('console.table');
-const { response } = require('express');
 const inquirer = require('inquirer');
-
 const {
   fetchEmpRoleTable,
   fetchEmpRoles,
@@ -164,8 +161,8 @@ quit = () => {
 function init() {
   inquirer
     .prompt(questions)
-    .then(answers => {
-      switch (answers.userSelected) {
+    .then(answers => { // res??
+      switch (answers.userSelected) { // res??
         case 'View All Employees':
           viewAllEmployees()
           break
